@@ -1,0 +1,70 @@
+.body {
+    background-color: rgb(226, 219, 219);
+}
+
+.btn {
+    color: white;
+    background-color: rgb(124, 201, 171);
+    margin: 5px;
+
+}
+
+.btn:hover {
+    color: rgba(206, 74, 74, 0.925);
+}
+
+.gifs {
+    display: inline-block;
+    margin: 10px;
+}
+
+#gifDiv {
+    display: inline-block;
+    
+}
+
+
+#wrap {
+    position: relative;
+    left: 80px;
+    top: -70px;
+    text-align: center;
+    border-radius: 20px;
+    margin-left: 10px;
+    z-index: 999;
+
+}
+
+img {
+    height: 150px;
+    width: 250px;
+    border-radius: 20px;
+}
+
+img:hover {
+    opacity: .8;
+}
+
+#inputText {
+    position: relative;
+    left: 875px;
+    margin-top: 5px;
+    max-width: 200px;
+}
+
+#submit {
+    
+    position: relative;
+    left: 995px;
+    top: -20px;
+}
+
+#gifs {
+    margin-top: 10px;
+    margin-right: 30px;
+    border: solid;
+    border-color: rgb(233, 225, 225);
+    border-radius: 20px;
+    background-color: rgb(228, 238, 247);
+
+}
