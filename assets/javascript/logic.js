@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
 var buttons = ["Korg M1", "Yamaha DX7", "Roland D50", "Moog Minimoog", "Oberheim", "Akai MPC", "Kawai"];
+var synth;
   
 //code for displaying the buttons
     function populateButtons() {
@@ -34,10 +35,13 @@ var buttons = ["Korg M1", "Yamaha DX7", "Roland D50", "Moog Minimoog", "Oberheim
     //code for pulling the gifs from the gif servers
     function clickOn() {
     $(".btn").click(function() {
-        var synth = $(this).attr("data");
+        synth = $(this).attr("data");
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
           synth + "&api_key=dc6zaTOxFJmzC&limit=10";
 
+        if (queryURL == "https://api.giphy.com/v1/gifs/search?q=undefined&api_key=dc6zaTOxFJmzC&limit=10"){
+        }
+        else if (queryURL != "https://api.giphy.com/v1/gifs/search?q=undefined&api_key=dc6zaTOxFJmzC&limit=10") {
         $.ajax({
           url: queryURL,
           method: "GET"
@@ -46,23 +50,24 @@ var buttons = ["Korg M1", "Yamaha DX7", "Roland D50", "Moog Minimoog", "Oberheim
           $("#gifs").empty();
           var results = response.data;
           for (var i = 0; i < results.length; i++) {
-            var animalDiv = $("<div>");
+            var synthDiv = $("<div>");
             var p = $("<p>").text("Rating: " + results[i].rating);
             p.attr("id", "wrap");
             p.addClass("badge badge-secondary");
-            var animalImage = $("<img>");
-            animalImage.attr("src", results[i].images.fixed_height.url.replace(".gif", "_s.gif"));
-            animalImage.addClass("gifs");
-            animalImage.attr("data-animate", results[i].images.fixed_height.url);
-            animalImage.attr("data-still", results[i].images.fixed_height.url.replace(".gif", "_s.gif"));
-            animalImage.attr("data-state", "still");
-            animalDiv.append(p);
-            animalDiv.append(animalImage);
-            animalDiv.attr("id","gifDiv")
-            $("#gifs").prepend(animalDiv);
+            var synthImage = $("<img>");
+            synthImage.attr("src", results[i].images.fixed_height.url.replace(".gif", "_s.gif"));
+            synthImage.addClass("gifs");
+            synthImage.attr("data-animate", results[i].images.fixed_height.url);
+            synthImage.attr("data-still", results[i].images.fixed_height.url.replace(".gif", "_s.gif"));
+            synthImage.attr("data-state", "still");
+            synthDiv.append(p);
+            synthDiv.append(synthImage);
+            synthDiv.attr("id","gifDiv")
+            $("#gifs").prepend(synthDiv);
           }
           clickGif();
           });
+        }
       });
     }
 
@@ -71,9 +76,14 @@ var buttons = ["Korg M1", "Yamaha DX7", "Roland D50", "Moog Minimoog", "Oberheim
     $(".submit").on("click", function(event) {
         event.preventDefault();
         var newSynth = $("#inputText").val().trim();
+        if (newSynth == ""){
+        alert("Please enter something...");
+        }
+        else {
         buttons.push(newSynth);
         populateButtons();
         clickOn();
+        }
       });
     }
 
@@ -93,8 +103,9 @@ var buttons = ["Korg M1", "Yamaha DX7", "Roland D50", "Moog Minimoog", "Oberheim
 
     populateButtons();
     populateInput();
-    clickOn();
     clickSubmit();
+    clickOn();
+    
     
     
 });
